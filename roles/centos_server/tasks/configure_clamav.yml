@@ -1,0 +1,24 @@
+---
+
+- name: Configure ClamAV Scanner
+  copy:
+    src: scan.conf
+    dest: /etc/clamd.conf
+
+- name: Set SELinux antivirus scan allowing boolean value
+  command: setsebool -P antivirus_can_scan_system 1
+  ignore_errors: yes
+
+- name: Start the ClamAV Service
+  command: systemctl start clamd@scan
+
+- name: Enable the ClamAV Service
+  command: systemctl enable clamd@scan
+
+- name: Configure daily ClamAV scan
+  copy:
+    src: clamdscan.sh
+    dest: /etc/cron.daily/clamdscan.sh
+    mode: 0755
+    owner: root
+    group: root

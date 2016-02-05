@@ -1,0 +1,4 @@
+- include: install_clamav.yml
+- include: configure_clamav.yml
+- include: install_clamav_update.yml
+- include: configure_clamav_update.yml

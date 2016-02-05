@@ -1,0 +1,11 @@
+---
+- hosts: server
+  user: root
+  vars_files:
+    - vars/default.yml
+
+  roles:
+    - {
+        role: centos_server,
+        when: ansible_distribution == "CentOS"
+      }

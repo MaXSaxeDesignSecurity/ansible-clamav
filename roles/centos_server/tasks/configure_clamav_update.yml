@@ -1,0 +1,22 @@
+---
+
+- name: Configure ClamAV Updater
+  copy:
+    src: freshclam.conf
+    dest: /etc/freshclam.conf
+
+- name: Configure ClamAV Update System Configuration
+  copy:
+    src: freshclam
+    dest: /etc/sysconfig/freshclam
+
+- name: Update ClamAV Malware Definitions
+  command: freshclam
+
+- name: Configure daily ClamAV definitions update
+  copy:
+    src: freshclam.sh
+    dest: /etc/cron.daily/freshclam.sh
+    mode: 0755
+    owner: root
+    group: root
